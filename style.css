@@ -1,3 +1,7 @@
+ html,
+body{
+  width:100%;
+}
  /* The navigation menu */
 .navbar {
   overflow: hidden;
