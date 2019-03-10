@@ -76,3 +76,11 @@ body{
 .File {
   margin-top: 50px;
 }
+
+.selectOptions{
+  height:50px;
+}
+
+.hide{
+  display:none;
+}

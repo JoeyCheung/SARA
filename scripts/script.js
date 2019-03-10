@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     const fileInput = document.getElementById('test');
     if (fileInput) {
         fileInput.addEventListener("change", function (e) {
@@ -17,8 +18,7 @@ $(document).ready(function () {
     }
 });
 
-//console.log(window);
-
+const MAX_AVAILABLE_ITEMS_VIEWED = 5;
 let test = Object.entries(window);
 
 let select = [];
@@ -49,19 +49,27 @@ window.onload = function () {
             select2.options[i] = null;
         }
         select2.options[select2.options.length] = new Option("Select one of the following", "");
-        console.log(test[select.value][1]);
+        select2.classList.remove("hide");
+        document.getElementById("browserSelectOptions").classList.remove("hide");
+        document.getElementById("browserSelectOptions").innerHTML = test[select.value][0] + " available options:";
         for (let prop in test[select.value][1]) {
-            if (typeof test[select.value][1][prop] === "object" || typeof test[select.value][1][prop] === "function" || test[select.value][1][prop] === null) {
+            if (typeof test[select.value][1][prop] === "object" || typeof test[select.value][1][prop] === "function" || test[select.value][1][prop] === null || test[select.value][1][prop] === undefined || test[select.value][1][prop] === "") {
 
             } else {
-                console.log(prop)
                 select2.options[select2.options.length] = new Option(prop, prop);
             }
         }
 
-    })
+    });
+    let ulList = document.getElementById("list");
     select2.addEventListener("change", (e) => {
-        console.log(select2.value)
-        console.log(test[select.value][1][select2.value])
+        let tempLi = document.createElement("li");
+        tempLi.innerHTML = select2.value + ": " + test[select.value][1][select2.value];
+        
+        if(ulList.childElementCount === MAX_AVAILABLE_ITEMS_VIEWED){
+            var elements = ulList.getElementsByTagName('li');
+            ulList.removeChild(elements[0]);
+        }
+        ulList.appendChild(tempLi);
     });
 }
