@@ -19,7 +19,37 @@ $(document).ready(function () {
 });
 
 const MAX_AVAILABLE_ITEMS_VIEWED = 5;
-let test = Object.entries(window);
+const test = {
+    document: window.document,
+    location: window.location,
+    screen: window.screen,
+    navigator: window.navigator
+};
+let hi = Object.entries(test);
+window.onload = function(){
+    console.log(hi);
+   let screen = document.getElementById('screen-info');
+   let location = document.getElementById('location-info');
+   let navigator = document.getElementById('navigator-info');
+   let el = document.createElement('p');
+   el.innerHTML = "Screen: " + window.screen.height + "px X " + window.screen.width + "px";
+   screen.appendChild(el);
+   el = document.createElement('p');
+   el.innerHTML = "Screen: " + window.screen.availHeight + "px X " + window.screen.availWidth + "px";
+   screen.appendChild(el);
+   el = document.createElement('p');
+   el.innerHTML = "href: " + window.location.href;
+   location.appendChild(el);
+   el = document.createElement('p');
+   el.innerHTML = "App Name: " + window.navigator.appName;
+   navigator.appendChild(el);
+   el = document.createElement('p');
+   el.innerHTML = "App Version: " + window.navigator.appVersion;
+   navigator.appendChild(el);
+   
+}
+/*
+let test = Object.entries(window.location);
 
 let select = [];
 window.onload = function () {
@@ -72,4 +102,4 @@ window.onload = function () {
         }
         ulList.appendChild(tempLi);
     });
-}
+} */

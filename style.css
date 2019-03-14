@@ -2,13 +2,13 @@
 body{
   width:100%;
 }
- /* The navigation menu */
+ /* The navigation menu *
 .navbar {
   overflow: hidden;
   background-color: #333;
 }
 
-/* Navigation links */
+/* Navigation links *
 .navbar a {
   float: left;
   font-size: 16px;
@@ -18,13 +18,13 @@ body{
   text-decoration: none;
 }
 
-/* The subnavigation menu */
+/* The subnavigation menu *
 .subnav {
   float: left;
   overflow: hidden;
 }
 
-/* Subnav button */
+/* Subnav button *
 .subnav .subnavbtn {
   font-size: 16px;
   border: none;
@@ -36,12 +36,12 @@ body{
   margin: 0;
 }
 
-/* Add a red background color to navigation links on hover */
+/* Add a red background color to navigation links on hover *
 .navbar a:hover, .subnav:hover .subnavbtn {
   background-color: purple;
 }
 
-/* Style the subnav content - positioned absolute */
+/* Style the subnav content - positioned absolute *
 .subnav-content {
   display: none;
   position: absolute;
@@ -51,24 +51,24 @@ body{
   z-index: 1;
 }
 
-/* Style the subnav links */
+/* Style the subnav links *
 .subnav-content a {
   float: left;
   color: white;
   text-decoration: none;
 }
 
-/* Add a grey background color on hover */
+/* Add a grey background color on hover *
 .subnav-content a:hover {
   background-color: #eee;
   color: black;
 }
 
-/* When you move the mouse over the subnav container, open the subnav content */
+/* When you move the mouse over the subnav container, open the subnav content *
 .subnav:hover .subnav-content {
   display: block;
 } 
-
+*/
 .Cars {
   margin-top: 50px;
 }
