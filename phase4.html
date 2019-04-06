@@ -57,20 +57,37 @@
       </div>
     </div>
   </nav>
+  <p id="resultsDisplay"></p>
   <div class="Cars">
-    <h2>Phase 4!</h2>
+    <div id="content">
+      <p>Search <input id="searchInput" type="text" ></p>
+      <button class="btn btn-primary" onclick="getSearchResults()"> Search </button>
+    </div>
     <script>
-      (function() {
-        var cx = '006547580310217252631:egviat0bax4';
-        var gcse = document.createElement('script');
-        gcse.type = 'text/javascript';
-        gcse.async = true;
-        gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(gcse, s);
-      })();
+
+    
+    function searchListener () {
+
+        let searchResultsDom = document.getElementById("resultsDisplay");
+        searchResultsDom.innerHTML = "";
+        let searchResponse = JSON.parse(this.response).items;
+         for (var i = 0; i < searchResponse.length; i++) {
+        var item = searchResponse[i];
+        // in production code, item.htmlTitle should have the HTML entities escaped.
+         searchResultsDom.innerHTML += "<br>" + item.htmlTitle;
+        }
+
+    }  
+
+    function getSearchResults()
+    {
+        let query = document.getElementById('searchInput').value;
+        var oReq = new XMLHttpRequest();
+        oReq.addEventListener("load", searchListener);
+        oReq.open("GET", "https://www.googleapis.com/customsearch/v1?key=AIzaSyADp3fUrHECGaIaTDkvu6nuNzA2mnBVRwQ&cx=006547580310217252631:egviat0bax4&q=" + query);
+        oReq.send();
+    }
     </script>
-    <gcse:search></gcse:search>
   </div>
 </body>
 </html>
