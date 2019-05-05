@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html>
+     <head>
+	      <meta charset="UTF-8">
+	      <meta name="viewport" content="width=device-width, initial-scale=1">
+		  <link rel="stylesheet" href="Custom_w3.css">
+          <link rel="stylesheet" href="WebSite_Stylesheet.css">
+     </head>
+
+     <body>
+	      <title>Google API Search Site</title>
+
+	      <ul>
+		     <li class="dropdown">
+			    <a href="index.html" class="dropbtn">Home</a>
+			 </li>
+			 
+             <li class="dropdown">
+			    <a class="dropbtn">Course &#9660;</a>
+				<div class="dropdown-content">
+				    <a href="https://learn.zybooks.com/zybook/CUNYCSCI355TeitelmanSpring2019">zyBooks Spring 2019</a>
+				</div>
+		     </li>
+				
+			 <li class="dropdown">
+			    <a class="dropbtn">Browser &#9660;</a>
+				<div class="dropdown-content">
+				    <a href="browser.html">Browser</a>
+					<a href="screen.html">Screen</a>
+					<a href="location.html">Location</a>
+					<a href="geolocation.html">Geolocation</a>
+				</div>
+		     </li>
+			 
+			 <li class="dropdown">
+			    <a class="active">Search &#9660;</a>
+				<div class="dropdown-content">
+				    <a href="phase2.html">Fixed List</a>
+					<a href="phase3.html">From File</a>
+					<a class="active2">Google API</a>
+					<a href="phase5.html">Search Engine</a>
+				</div>
+		     </li>
+			 
+			 <li class="dropdown">
+			    <a class="dropbtn">About &#9660;</a>
+				<div class="dropdown-content">
+				   <a href="description.html">Student Description</a>
+				   <a href="contact.html">Contact Us</a>
+				</div>
+		     </li>
+          </ul>
+		  <br>
+		  
+		  <div class="header">
+              <h1>Google API Search</h1>
+          </div> 
+		  
+		  <div id="saD" class="allOp3">
+		      <input id="sa" type="checkbox" onclick="selectA()">
+			  <label for="sa" style>Select All</label>
+		  </div>
+		  
+		  <div>
+		      <input id="myInput" type="text" placeholder="Search API">
+		      <button class="button2" onClick="getSearchResults()" id="inputButton">Search</button>  
+		  </div>
+		  <br><br>
+		  
+		  <table id="sTable"></table>
+		  <br><br>
+		
+		  <center style="visibility:hidden">
+		         <label>Select File Type</label><br><br>
+				 
+		         <select id="fileType">
+                        <option value="xml">XML</option>
+                        <option value="json">JSON</option>
+                        <option value="csv">CSV</option>
+		         </select>	 
+		  </center>
+		  <br><br>
+		  
+		  <button class="button4_2" onclick="download()">Download</button>
+		  <br><br><br><br><a id="db"></a>
+		  
+		  <script>
+		         function selectR(clicked_row)
+			     {
+				    var r = document.getElementById(clicked_row);
+					var cb = r.cells[0].getElementsByTagName("input")[0];
+					   
+				    if(cb.checked == true)
+					{
+					   r.className = "selected";
+					}else
+					 {
+					    r.className = "r3";
+					 }
+				 }
+				 
+				 function selectA()
+				 {
+				    var t = document.getElementById("sTable");
+					var cb = document.getElementById("sa");
+					
+				    for(var i = 0; i < t.rows.length; i++)
+					{					   
+					   if(cb.checked == true)
+					   {
+					      t.rows[i].className = "selected";
+						  t.rows[i].cells[0].getElementsByTagName("input")[0].checked = true;
+					   }else
+					    {
+						   t.rows[i].className = "r3";
+						   t.rows[i].cells[0].getElementsByTagName("input")[0].checked = false;
+					    }
+					}
+				 }
+				 
+				 function download()
+				 {		
+				    var f = document.getElementById("fileType").value;
+					
+					if(f == "xml")
+					{
+					   xmlDownload();
+					}else if(f == "json")
+					 {
+						jsonDownload();
+					 }else
+					  {
+					     csvDownload();
+					  }
+				 }
+				 
+				 function xmlDownload()
+			     {
+					var t = document.getElementById("sTable");
+				    var x = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<search_results>\n";
+					
+                    for(var i = 0; i < t.rows.length; i++) 
+					{					   
+                       if(t.rows[i].className == "selected")
+					   {
+					      x += "<result>\n" +
+						  "<title>" + t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML + "</title>\n" +
+                          "<url>" + t.rows[i].cells[1].getElementsByTagName("a")[0].text + "</url>\n" +
+                          "<description>" + t.rows[i].cells[2].innerHTML + "</description>\n</result>\n";
+					   }
+                    }
+					
+					x += "</search_results>";
+				    var a = document.getElementById("db");
+					
+                    var blob = new Blob([x], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = "Results_X.xml";
+					a.click();
+					window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+			     }
+				 
+				 function jsonDownload()
+			     {
+					var t = document.getElementById("sTable");
+				    
+                    var baseOBJ = {
+                        Result: []
+                    };
+
+                    for(var i = 0; i < t.rows.length; i++) 
+					{
+					   if(t.rows[i].className == "selected")
+					   {
+					      var rowContents = {};
+                          rowContents.title = t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML;
+                          rowContents.url = t.rows[i].cells[1].getElementsByTagName("a")[0].text;
+                          rowContents.description = t.rows[i].cells[2].innerHTML;
+						  baseOBJ.Result.push(rowContents);
+					   }
+                    }
+					
+					var myJ = JSON.stringify(baseOBJ).replace(/,{/g, ",\r\n           {");
+				    var a = document.getElementById("db");
+					
+                    var blob = new Blob([myJ], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = "Results_J.json";
+					a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+				 }
+				 
+				 function csvDownload()
+			     {
+					var t = document.getElementById("sTable");
+                    var x = "";
+					
+                    for(var i = 0; i < t.rows.length; i++) 
+					{
+                       if(t.rows[i].className == "selected")
+					   {
+					      var title = t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML.toString();
+					      var desc = t.rows[i].cells[2].innerHTML.toString();
+						  
+						  if(title.includes(","))
+						  {
+						     title = "\"" + title + "\"";
+						  }
+						  
+						  if(desc.includes(","))
+						  {
+						     desc = "\"" + desc.replace(/"/g, "\"\"") + "\"";
+						  }
+						  
+					      x += title + "," +
+                          t.rows[i].cells[1].getElementsByTagName("a")[0].text + "," +
+                          desc + "\n";
+					   }
+					}
+					
+					var a = document.getElementById("db");
+					
+                    var blob = new Blob([x], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = "Results_C.csv";
+					a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+			     }
+		  
+				function onResultsLoad()
+				{
+					let returnedObject = JSON.parse(this.responseText);
+					let tb = "";
+					
+					for(let i = 0; i < returnedObject.items.length; i++)
+					{
+					    let i_1 = i + 1;
+					    let rI = "p4r" + i_1.toString();
+						let item = returnedObject.items[i];
+						
+						tb += "<tr id='" + rI + "' class='r3'><td class='sCell'><input type=\"checkbox\" onclick=\"selectR('" + rI + "')\"><p>" +
+						item.title + "</p></td><td class='sCell'><center><a href=\"" + item.link + "\" style='color:blue'>" +
+						item.link + "</a></center></td><td class='sCell'>" +
+						item.htmlSnippet.toString().replace(/<[^>]*>/g, '').replace(/\n/g, '') + "</td></tr>";
+					}
+					
+					document.getElementById("sTable").innerHTML = tb;
+					document.getElementById("saD").style.visibility = "visible";
+					document.getElementsByTagName("center")[returnedObject.items.length].style.visibility = "visible";
+					document.getElementsByTagName("button")[1].style.visibility = "visible";
+					document.getElementById("sa").checked = false;
+				}
+		  
+               function getSearchResults()
+			   {
+					let inputSearchBox = document.getElementById("myInput");
+					let searchQuery = inputSearchBox.value;					
+			   
+					let googleRequst = new XMLHttpRequest();
+					googleRequst.addEventListener("load", onResultsLoad);
+					googleRequst.open("GET", "https://www.googleapis.com/customsearch/v1?key=AIzaSyCN4X8GHHjDTtMqVGCmVV_dPYbFU9H40-o&cx=004128573973017795714:1qnoyvmfzcw&q="+searchQuery);
+					googleRequst.send();
+			   }
+          </script>
+     </body>
+</html>

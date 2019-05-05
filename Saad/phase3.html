@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html>
+     <head>
+	      <meta charset="UTF-8">
+	      <meta name="viewport" content="width=device-width, initial-scale=1">
+		  <link rel="stylesheet" href="Custom_w3.css">
+          <link rel="stylesheet" href="WebSite_Stylesheet.css">
+		  <script src="jquery-3.3.1.min.js"></script>
+     </head>
+
+     <body>
+	      <title>From File Site</title>
+
+	      <ul>
+		     <li class="dropdown">
+			    <a href="index.html" class="dropbtn">Home</a>
+			 </li>
+			 
+             <li class="dropdown">
+			    <a class="dropbtn">Course &#9660;</a>
+				<div class="dropdown-content">
+				    <a href="https://learn.zybooks.com/zybook/CUNYCSCI355TeitelmanSpring2019">zyBooks Spring 2019</a>
+				</div>
+		     </li>
+				
+			 <li class="dropdown">
+			    <a class="dropbtn">Browser &#9660;</a>
+				<div class="dropdown-content">
+				    <a href="browser.html">Browser</a>
+					<a href="screen.html">Screen</a>
+					<a href="location.html">Location</a>
+					<a href="geolocation.html">Geolocation</a>
+				</div>
+		     </li>
+			 
+			 <li class="dropdown">
+			    <a class="active">Search &#9660;</a>
+				<div class="dropdown-content">
+				    <a href="phase2.html">Fixed List</a>
+					<a class="active2">From File</a>
+					<a href="phase4.html">Google API</a>
+					<a href="phase5.html">Search Engine</a>
+				</div>
+		     </li>
+			 
+			 <li class="dropdown">
+			    <a class="dropbtn">About &#9660;</a>
+				<div class="dropdown-content">
+				   <a href="description.html">Student Description</a>
+				   <a href="contact.html">Contact Us</a>
+				</div>
+		     </li>
+          </ul>
+		  <br>
+		  
+		  <div class="header">
+              <h1>From File Results</h1>
+          </div>
+		  <br>
+		  
+		  <h3 style="text-align:center">Select Results</h3>
+		  
+          <table id="sTable">
+                <tr id="p3r1" class="r3">
+                   <td class="sCell3"><input type="checkbox" onclick="selectR('p3r1')"><p>Russian Live Science</p></td>
+                   <td class="sCell3"><a href="https://www.livescience.com/44154-russian-culture.html" style="color:blue">https://www.livescience.com/44154-russian-culture.html</a></td>
+	               <td class="sCell3">Russian culture has a long and rich cultural history and scientific development.</td>
+                </tr>
+				
+                <tr id="p3r2" class="r3">
+                   <td class="sCell3"><input type="checkbox" onclick="selectR('p3r2')"><p>Russian Heritage</p></td>
+                   <td class="sCell3"><a href="http://russianamericanfoundation.org/annual-russian-heritage-month" style="color:blue">http://russianamericanfoundation.org/annual-russian-heritage-month</td>
+	               <td class="sCell3">The Annual Russian Heritage Month celebrates and honors the rich diversity of cultural traditions brought to the U.S. from the many countries of the former Soviet Union.</td>
+                </tr>
+				
+				<tr id="p3r3" class="r3">
+                   <td class="sCell3"><input type="checkbox" onclick="selectR('p3r3')"><p>Russian Traditions</p></td>
+                   <td class="sCell3"><a href="https://www.tripsavvy.com/russian-culture-facts-1502209" style="color:blue">https://www.tripsavvy.com/russian-culture-facts-1502209</td>
+	               <td class="sCell3">Russian culture facts will give you a brief insight into the larger subject.</td>
+                </tr>
+				
+				<tr id="p3r4" class="r3">
+                   <td class="sCell3"><input type="checkbox" onclick="selectR('p3r4')"><p>Russian Guide</p></td>
+                   <td class="sCell3"><a href="https://www.commisceo-global.com/resources/country-guides/russia-guide" style="color:blue">https://www.commisceo-global.com/resources/country-guides/russia-guide</td>
+	               <td class="sCell3">This is useful for anyone researching Russian culture as well as wanting to understand the people better.</td>
+                </tr>
+				
+                <tr id="p3r5" class="r3">
+                   <td class="sCell3"><input type="checkbox" onclick="selectR('p3r5')"><p>Seven things you need to about russian culture</p></td>
+                   <td class="sCell3"><a href="http://blog.mangolanguages.com/seven-things-you-should-know-about-russian-culture" style="color:blue">http://blog.mangolanguages.com/seven-things-you-should-know-about-russian-culture</td>
+	               <td class="sCell3">Whether you’re looking for unique vacation ideas or just curious to learn more about the largest nation on Earth — here are a few things that I think you should know about Russian culture.</td>
+                </tr>
+				
+                <tr id="p3r6" class="r3">
+                   <td class="sCell3"><input type="checkbox" onclick="selectR('p3r6')"><p>Russian Convictions</p></td>
+                   <td class="sCell3"><a href="https://www.cnn.com/2019/02/27/europe/treason-convictions-russia-us-election-intl/index.html" style="color:blue">https://www.cnn.com/2019/02/27/europe/treason-convictions-russia-us-election-intl/index.html</td>
+	               <td class="sCell3">Convictions handed down this week in a high-profile treason case in Russia have reopened questions.</td>
+                </tr>
+				
+                <tr id="p3r7" class="r3">
+                   <td class="sCell3"><input type="checkbox" onclick="selectR('p3r7')"><p>Russian Connections</p></td>
+                   <td class="sCell3"><a href="https://www.newyorker.com/magazine/2018/10/15/was-there-a-connection-between-a-russian-bank-and-the-trump-campaign" style="color:blue">https://www.newyorker.com/magazine/2018/10/15/was-there-a-connection-between-a-russian-bank-and-the-trump-campaign</td>
+	               <td class="sCell3">Was There a Connection Between a Russian Bank and the Trump Campaign?</td>
+                </tr>
+				
+                <tr id="p3r8" class="r3">
+                   <td class="sCell3"><input type="checkbox" onclick="selectR('p3r8')"><p>Russian Politics</p></td>
+                   <td class="sCell3"><a href="https://www.euronews.com/tag/russian-politics" style="color:blue">https://www.euronews.com/tag/russian-politics</td>
+	               <td class="sCell3">Current Political Topics of Russia</td>
+                </tr>
+				
+                <tr id="p3r9" class="r3">
+                   <td class="sCell3"><input type="checkbox" onclick="selectR('p3r9')"><p>Russian Language</p></td>
+                   <td class="sCell3"><a href="http://www.russianlessons.net/lessons/getting_started.php" style="color:blue">http://www.russianlessons.net/lessons/getting_started.php</td>
+	               <td class="sCell3">The key to learning any language is to immerse yourself in the language. On this page you will find some tips that will help you to learn Russian.</td>
+                </tr>
+				
+                <tr id="p3r10" class="r3">
+                   <td class="sCell3"><input type="checkbox" onclick="selectR('p3r10')"><p>Russian Economy</p></td>
+                   <td class="sCell3"><a href="https://www.heritage.org/index/country/russia" style="color:blue">https://www.heritage.org/index/country/russia</td>
+	               <td class="sCell3">Information on Russia's economic system</td>
+                </tr>
+          </table>
+		  <br><br>
+		  
+		  <button class="button3" onclick="upload()">Upload</button>
+		  <button class="button3_2" onclick="download()">Download</button>
+		  
+		  <center>
+		         <label>Select File Type</label><br><br>
+				 
+		         <select id="fileType">
+                        <option value="xml">XML</option>
+                        <option value="json">JSON</option>
+                        <option value="csv">CSV</option>
+		         </select>	 
+		  </center>
+		  <br><br>
+		  
+		  <center><p id="demo"></p></center>
+		  <table id="sTable2"></table>
+		  <br><br><br><a id="db"></a>
+         
+		  <script>			  
+				 function selectR(clicked_row)
+			     {
+				    var r = document.getElementById(clicked_row);
+					var cb = r.cells[0].getElementsByTagName("input")[0];
+					   
+				    if(cb.checked == true)
+					{
+					   r.className = "selected";
+					}else
+					 {
+					    r.className = "r3";
+					 }
+				 }
+				 
+				 function upload()
+				 {		
+				    var f = document.getElementById("fileType").value;
+					
+					if(f == "xml")
+					{
+					   xmlUpload();
+					}else if(f == "json")
+					 {
+						jsonUpload();
+					 }else
+					  {
+					     csvUpload();
+					  }
+				 }
+				 
+				 function download()
+				 {		
+				    var f = document.getElementById("fileType").value;
+					
+					if(f == "xml")
+					{
+					   xmlDownload();
+					}else if(f == "json")
+					 {
+						jsonDownload();
+					 }else
+					  {
+					     csvDownload();
+					  }
+				 }
+			
+				 function xmlUpload()
+				 {
+				    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() 
+					{
+                       if(this.readyState == 4 && this.status == 200) 
+					   {
+                          myFunction(this);
+                       }
+                    };
+				 
+                    xhttp.open("GET", "Results_X.xml", true);
+                    xhttp.send();
+
+                    function myFunction(xml) 
+					{
+                       var i;
+                       var xmlDoc = xml.responseXML;
+                       var tr = "<tr><th>Title</th><th>URL</th><th>Description</tr>";
+                       var x = xmlDoc.getElementsByTagName("result");
+					   
+                       for(i = 0; i < x.length; i++) 
+					   { 
+                          tr += "<tr class='r3'><td id='sCell'>" +
+                          x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue + "</td><td id='sCell'>" +
+                          x[i].getElementsByTagName("url")[0].childNodes[0].nodeValue + "</td><td id='sCell'>" +
+						  x[i].getElementsByTagName("description")[0].childNodes[0].nodeValue + "</td></tr>";
+                       }
+					   
+                       document.getElementById("sTable2").innerHTML = tr;
+					   document.getElementById("demo").innerHTML = "Uploaded XML Results";
+                    }
+				 }
+				 
+				 function jsonUpload()
+		         {
+                    $.getJSON('Results_J.json', function(data) 
+					{
+					   var tr = "<tr><th>Title</th><th>URL</th><th>Description</th></tr>";
+					   
+                       $.each(data.Result, function(i, r) 
+					   {
+                          tr += "<tr class='r3'><td id='sCell'>" + 
+						  r.title + "</td><td id='sCell'>" + 
+						  r.url + "</td><td id='sCell'>" + 
+						  r.description + "</td></tr>";
+                       });
+					   
+					   $('#sTable2').html(tr);
+					   $('#demo').text("Uploaded JSON Results");
+                    });
+                 }
+				 
+				 function csvUpload()
+				 {
+			        $(document).ready(function()
+				    {
+                       $.ajax(
+					   {
+                          url:"Results_C.csv",
+                          dataType:"text",
+                          success:function(data)
+                          {
+                             var Result = data.split(/\r?\n|\r/);
+                             var tr = "<tr><th>Title</th><th>URL</th><th>Description</th></tr>";
+						  
+                             for(var i = 0; i < Result.length; i++)
+                             {
+                                var td = Result[i].split(",");
+							 
+                                tr += "<tr class='r3'><td id='sCell'>" + 
+						        td[0] + "</td><td id='sCell'>" + 
+						        td[1] + "</td><td id='sCell'>" + 
+						        td[2] + "</td></tr>";
+                             }
+						  
+                             $('#sTable2').html(tr);
+							 $('#demo').text("Uploaded CSV Results");
+                          }
+                       });
+                    });
+				 }
+				 
+				 function xmlDownload()
+			     {
+					var t = document.getElementById("sTable");
+				    var x = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<search_results>\n";
+					
+                    for(var i = 0; i < t.rows.length; i++) 
+					{
+                       if(t.rows[i].className == "selected")
+					   {
+					      x += "<result>\n" +
+						  "<title>" + t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML + "</title>\n" +
+                          "<url>" + t.rows[i].cells[1].getElementsByTagName("a")[0].text + "</url>\n" +
+                          "<description>" + t.rows[i].cells[2].innerHTML + "</description>\n</result>\n";
+					   }
+                    }
+					
+					x += "</search_results>";
+				    var a = document.getElementById("db");
+					
+                    var blob = new Blob([x], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = "Results_X.xml";
+					a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+			     }
+				 
+				 function jsonDownload()
+			     {
+					var t = document.getElementById("sTable");
+				    
+                    var baseOBJ = {
+                        Result: []
+                    };
+
+                    for(var i = 0; i < t.rows.length; i++) 
+					{
+                       if(t.rows[i].className == "selected")
+					   {
+					      var rowContents = {};
+                          rowContents.title = t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML;
+                          rowContents.url = t.rows[i].cells[1].getElementsByTagName("a")[0].text;
+                          rowContents.description = t.rows[i].cells[2].innerHTML;
+						  baseOBJ.Result.push(rowContents);
+					   }
+                    }
+					
+				    var a = document.getElementById("db");
+					
+                    var blob = new Blob([JSON.stringify(baseOBJ)], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = "Results_J.json";
+					a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+				 }
+				 
+				 function csvDownload()
+			     {
+					var t = document.getElementById("sTable");
+                    var x = "";
+					
+                    for(var i = 0; i < t.rows.length; i++) 
+					{
+                       if(t.rows[i].className == "selected")
+					   {
+					      if(i != t.rows.length - 1)
+						  {
+					         x += t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML + "," +
+                             t.rows[i].cells[1].getElementsByTagName("a")[0].text + "," +
+                             t.rows[i].cells[2].innerHTML + "\n";
+						  }else
+						   {
+						     x += t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML + "," +
+                             t.rows[i].cells[1].getElementsByTagName("p")[0].text + "," +
+                             t.rows[i].cells[2].innerHTML;
+						   }
+					   }
+                    }
+					
+					var a = document.getElementById("db");
+					
+                    var blob = new Blob([x], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = "Results_C.csv";
+					a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+			     }
+          </script>
+     </body>
+</html>
