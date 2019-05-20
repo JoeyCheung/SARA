@@ -1,22 +1,203 @@
 $(document).ready(function () {
     
-    const fileInput = document.getElementById('test');
-    if (fileInput) {
-        fileInput.addEventListener("change", function (e) {
-            let file = this.files[0];
-            if (file.type === "text/csv" || file.type === "text/xml" || file.type === "application/json") {
-                let fileReader = new FileReader();
-                fileReader.readAsText(file);
-                fileReader.onload = function (e) {
-                    document.getElementById("result").innerHTML = fileReader.result;
-                }
-            } else {
-                document.getElementById("result").innerHTML = "File type not supported!"
-            }
+    function upload()
+				 {		
+				    var f = document.getElementById("fileType").value;
+					
+					if(f == "xml")
+					{
+					   xmlUpload();
+					}else if(f == "json")
+					 {
+						jsonUpload();
+					 }else
+					  {
+					     csvUpload();
+					  }
+				 }
 
-        });
-    }
+function xmlUpload()
+				 {
+				    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() 
+					{
+                       if(this.readyState == 4 && this.status == 200) 
+					   {
+                          myFunction(this);
+                       }
+                    };
+				 
+                    xhttp.open("GET", "Results_X.xml", true);
+                    xhttp.send();
+
+                    function myFunction(xml) 
+					{
+                       var i;
+                       var xmlDoc = xml.responseXML;
+                       var tr = "<tr><th>Title</th><th>URL</th><th>Description</tr>";
+                       var x = xmlDoc.getElementsByTagName("result");
+					   
+                       for(i = 0; i < x.length; i++) 
+					   { 
+                          tr += "<tr class='r3'><td class='sCell2'>" +
+                          x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue + "</td><td class='sCell2'>" +
+                          x[i].getElementsByTagName("url")[0].childNodes[0].nodeValue + "</td><td class='sCell2'>" +
+						  x[i].getElementsByTagName("description")[0].childNodes[0].nodeValue + "</td></tr>";
+                       }
+					   
+                       document.getElementById("sTable2").innerHTML = tr;
+					   document.getElementById("demo").innerHTML = "Uploaded XML Results";
+                    }
+				 }
+				 
+				 function jsonUpload()
+		         {
+                    $.getJSON('Results_J.json', function(data) 
+					{
+					   var tr = "<tr><th>Title</th><th>URL</th><th>Description</th></tr>";
+					   
+                       $.each(data.Result, function(i, r) 
+					   {
+                          tr += "<tr class='r3'><td class='sCell2'>" + 
+						  r.title + "</td><td class='sCell2'>" + 
+						  r.url + "</td><td class='sCell2'>" + 
+						  r.description + "</td></tr>";
+                       });
+					   
+					   $('#sTable2').html(tr);
+					   $('#demo').text("Uploaded JSON Results");
+                    });
+                 }
+				 
+				 function csvUpload()
+				 {
+			        $(document).ready(function()
+				    {
+                       $.ajax(
+					   {
+                          url:"Results_C.csv",
+                          dataType:"text",
+                          success:function(data)
+                          {
+                             var Result = data.split(/\r?\n|\r/);
+                             var tr = "<tr><th>Title</th><th>URL</th><th>Description</th></tr>";
+						  
+                             for(var i = 0; i < Result.length; i++)
+                             {
+                                var td = Result[i].split(",");
+							 
+                                tr += "<tr class='r3'><td class='sCell2'>" + 
+						        td[0] + "</td><td class='sCell2'>" + 
+						        td[1] + "</td><td class='sCell2'>" + 
+						        td[2] + "</td></tr>";
+                             }
+						  
+                             $('#sTable2').html(tr);
+							 $('#demo').text("Uploaded CSV Results");
+                          }
+                       });
+                    });
+				 }
 });
+
+				 function upload()
+				 {		
+				    var f = document.getElementById("fileType").value;
+					
+					if(f == "xml")
+					{
+					   xmlUpload();
+					}else if(f == "json")
+					 {
+						jsonUpload();
+					 }else
+					  {
+					     csvUpload();
+					  }
+				 }
+
+function xmlUpload()
+				 {
+				    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() 
+					{
+                       if(this.readyState == 4 && this.status == 200) 
+					   {
+                          myFunction(this);
+                       }
+                    };
+				 
+                    xhttp.open("GET", "Results_X.xml", true);
+                    xhttp.send();
+
+                    function myFunction(xml) 
+					{
+                       var i;
+                       var xmlDoc = xml.responseXML;
+                       var tr = "<tr><th>Title</th><th>URL</th><th>Description</tr>";
+                       var x = xmlDoc.getElementsByTagName("result");
+					   
+                       for(i = 0; i < x.length; i++) 
+					   { 
+                          tr += "<tr class='r3'><td class='sCell2'>" +
+                          x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue + "</td><td class='sCell2'>" +
+                          x[i].getElementsByTagName("url")[0].childNodes[0].nodeValue + "</td><td class='sCell2'>" +
+						  x[i].getElementsByTagName("description")[0].childNodes[0].nodeValue + "</td></tr>";
+                       }
+					   
+                       document.getElementById("sTable2").innerHTML = tr;
+					   document.getElementById("demo").innerHTML = "Uploaded XML Results";
+                    }
+				 }
+				 
+				 function jsonUpload()
+		         {
+                    $.getJSON('Results_J.json', function(data) 
+					{
+					   var tr = "<tr><th>Title</th><th>URL</th><th>Description</th></tr>";
+					   
+                       $.each(data.Result, function(i, r) 
+					   {
+                          tr += "<tr class='r3'><td class='sCell2'>" + 
+						  r.title + "</td><td class='sCell2'>" + 
+						  r.url + "</td><td class='sCell2'>" + 
+						  r.description + "</td></tr>";
+                       });
+					   
+					   $('#sTable2').html(tr);
+					   $('#demo').text("Uploaded JSON Results");
+                    });
+                 }
+				 
+				 function csvUpload()
+				 {
+			        $(document).ready(function()
+				    {
+                       $.ajax(
+					   {
+                          url:"Results_C.csv",
+                          dataType:"text",
+                          success:function(data)
+                          {
+                             var Result = data.split(/\r?\n|\r/);
+                             var tr = "<tr><th>Title</th><th>URL</th><th>Description</th></tr>";
+						  
+                             for(var i = 0; i < Result.length; i++)
+                             {
+                                var td = Result[i].split(",");
+							 
+                                tr += "<tr class='r3'><td class='sCell2'>" + 
+						        td[0] + "</td><td class='sCell2'>" + 
+						        td[1] + "</td><td class='sCell2'>" + 
+						        td[2] + "</td></tr>";
+                             }
+						  
+                             $('#sTable2').html(tr);
+							 $('#demo').text("Uploaded CSV Results");
+                          }
+                       });
+                    });
+				 }
 
 const MAX_AVAILABLE_ITEMS_VIEWED = 5;
 const test = {

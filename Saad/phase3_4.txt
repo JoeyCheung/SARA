@@ -1,0 +1,489 @@
+PHASE 3 SCRIPT
+**************
+<script>			  
+				 function selectR(clicked_row)
+			     {
+				    var r = document.getElementById(clicked_row);
+					var cb = r.cells[0].getElementsByTagName("input")[0];
+					   
+				    if(cb.checked == true)
+					{
+					   r.className = "selected";
+					}else
+					 {
+					    r.className = "r3";
+					 }
+				 }
+				 
+				 function selectA()
+				 {
+				    var t = document.getElementById("sTable");
+					var cb = document.getElementById("sa");
+					
+				    for(var i = 0; i < t.rows.length; i++)
+					{					   
+					   if(cb.checked == true)
+					   {
+					      t.rows[i].className = "selected";
+						  t.rows[i].cells[0].getElementsByTagName("input")[0].checked = true;
+					   }else
+					    {
+						   t.rows[i].className = "r3";
+						   t.rows[i].cells[0].getElementsByTagName("input")[0].checked = false;
+					    }
+					}
+				 }
+				 
+				 function upload()
+				 {		
+				    var f = document.getElementById("fileType").value;
+					
+					if(f == "xml")
+					{
+					   xmlUpload();
+					}else if(f == "json")
+					 {
+						jsonUpload();
+					 }else
+					  {
+					     csvUpload();
+					  }
+				 }
+				 
+				 function download()
+				 {		
+				    var fn = document.getElementById("iN").value;
+				    var f = document.getElementById("fileType").value;
+					
+					if(fn == "")
+					{
+					   alert("Please enter a name for the file to be downloaded.");
+					}else if(fn.includes("."))
+					 {
+					    alert("Name of the file to be downloaded must not include the character \".\"");
+					 }else if(f == "xml")
+					  {
+					     xmlDownload(fn);
+					  }else if(f == "json")
+					   {
+						  jsonDownload(fn);
+					   }else
+					    {
+					       csvDownload(fn);
+					    }
+				 }
+			
+				 function xmlUpload()
+				 {
+				    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() 
+					{
+                       if(this.readyState == 4 && this.status == 200) 
+					   {
+                          myFunction(this);
+                       }
+                    };
+				 
+                    xhttp.open("GET", "Results_X.xml", true);
+                    xhttp.send();
+
+                    function myFunction(xml) 
+					{
+                       var i;
+                       var xmlDoc = xml.responseXML;
+                       var tr = "<tr><th>Title</th><th>URL</th><th>Description</tr>";
+                       var x = xmlDoc.getElementsByTagName("result");
+					   
+                       for(i = 0; i < x.length; i++) 
+					   { 
+                          tr += "<tr class='r3'><td class='sCell2'>" +
+                          x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue + "</td><td class='sCell2'>" +
+                          x[i].getElementsByTagName("url")[0].childNodes[0].nodeValue + "</td><td class='sCell2'>" +
+						  x[i].getElementsByTagName("description")[0].childNodes[0].nodeValue + "</td></tr>";
+                       }
+					   
+                       document.getElementById("sTable2").innerHTML = tr;
+					   document.getElementById("demo").innerHTML = "Uploaded XML Results";
+                    }
+				 }
+				 
+				 function jsonUpload()
+		         {
+                    $.getJSON('Results_J.json', function(data) 
+					{
+					   var tr = "<tr><th>Title</th><th>URL</th><th>Description</th></tr>";
+					   
+                       $.each(data.Result, function(i, r) 
+					   {
+                          tr += "<tr class='r3'><td class='sCell2'>" + 
+						  r.title + "</td><td class='sCell2'>" + 
+						  r.url + "</td><td class='sCell2'>" + 
+						  r.description + "</td></tr>";
+                       });
+					   
+					   $('#sTable2').html(tr);
+					   $('#demo').text("Uploaded JSON Results");
+                    });
+                 }
+				 
+				 function csvUpload()
+				 {
+			        $(document).ready(function()
+				    {
+                       $.ajax(
+					   {
+                          url:"Results_C.csv",
+                          dataType:"text",
+                          success:function(data)
+                          {
+                             var Result = data.split(/\r?\n|\r/);
+                             var tr = "<tr><th>Title</th><th>URL</th><th>Description</th></tr>";
+						  
+                             for(var i = 0; i < Result.length; i++)
+                             {
+                                var td = Result[i].split(",");
+							 
+                                tr += "<tr class='r3'><td class='sCell2'>" + 
+						        td[0] + "</td><td class='sCell2'>" + 
+						        td[1] + "</td><td class='sCell2'>" + 
+						        td[2] + "</td></tr>";
+                             }
+						  
+                             $('#sTable2').html(tr);
+							 $('#demo').text("Uploaded CSV Results");
+                          }
+                       });
+                    });
+				 }
+				 
+				 function xmlDownload(FN)
+			     {
+					var t = document.getElementById("sTable");
+				    var x = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<search_results>\n";
+					
+                    for(var i = 0; i < t.rows.length; i++) 
+					{
+                       if(t.rows[i].className == "selected")
+					   {
+					      x += "<result>\n" +
+						  "<title>" + t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML + "</title>\n" +
+                          "<url>" + t.rows[i].cells[1].getElementsByTagName("a")[0].text + "</url>\n" +
+                          "<description>" + t.rows[i].cells[2].innerHTML + "</description>\n</result>\n";
+					   }
+                    }
+					
+					x += "</search_results>";
+				    var a = document.getElementById("db");
+					
+                    var blob = new Blob([x], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = FN + ".xml";
+					a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+			     }
+				 
+				 function jsonDownload(FN)
+			     {
+					var t = document.getElementById("sTable");
+				    
+                    var baseOBJ = {
+                        Result: []
+                    };
+
+                    for(var i = 0; i < t.rows.length; i++) 
+					{
+                       if(t.rows[i].className == "selected")
+					   {
+					      var rowContents = {};
+                          rowContents.title = t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML;
+                          rowContents.url = t.rows[i].cells[1].getElementsByTagName("a")[0].text;
+                          rowContents.description = t.rows[i].cells[2].innerHTML;
+						  baseOBJ.Result.push(rowContents);
+					   }
+                    }
+					
+					var myJ = JSON.stringify(baseOBJ).replace(/,{/g, ",\r\n           {");
+				    var a = document.getElementById("db");
+					
+                    var blob = new Blob([myJ], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = FN + ".json";
+					a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+				 }
+				 
+				 function csvDownload(FN)
+			     {
+					var t = document.getElementById("sTable");
+                    var x = "";
+					
+                    for(var i = 0; i < t.rows.length; i++) 
+					{
+                       if(t.rows[i].className == "selected")
+					   {
+					      if(i != t.rows.length - 1)
+						  {
+					         x += t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML + "," +
+                             t.rows[i].cells[1].getElementsByTagName("a")[0].text + "," +
+                             t.rows[i].cells[2].innerHTML + "\n";
+						  }
+					   }
+                    }
+					
+					var a = document.getElementById("db");
+					
+                    var blob = new Blob([x], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = FN + ".csv";
+					a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+			     }
+          </script>
+===============================================================================================================================================
+PHASE 4 SCRIPT
+**************
+<script>
+		         function selectR(clicked_row)
+			     {
+				    var r = document.getElementById(clicked_row);
+					var cb = r.cells[0].getElementsByTagName("input")[0];
+					   
+				    if(cb.checked == true)
+					{
+					   r.className = "selected";
+					}else
+					 {
+					    r.className = "r3";
+					 }
+				 }
+				 
+				 function selectA()
+				 {
+				    var t = document.getElementById("sTable");
+					var cb = document.getElementById("sa");
+					
+				    for(var i = 0; i < t.rows.length; i++)
+					{					   
+					   if(cb.checked == true)
+					   {
+					      t.rows[i].className = "selected";
+						  t.rows[i].cells[0].getElementsByTagName("input")[0].checked = true;
+					   }else
+					    {
+						   t.rows[i].className = "r3";
+						   t.rows[i].cells[0].getElementsByTagName("input")[0].checked = false;
+					    }
+					}
+				 }
+				 
+				 function download()
+				 {		
+				    var fn = document.getElementById("iN").value;
+				    var f = document.getElementById("fileType").value;
+					
+					if(fn == "")
+					{
+					   alert("Please enter a name for the file to be downloaded.");
+					}else if(fn.includes("."))
+					 {
+					    alert("Name of the file to be downloaded must not include the character \".\"");
+					 }else if(f == "xml")
+					  {
+					     xmlDownload(fn);
+					  }else if(f == "json")
+					   {
+						  jsonDownload(fn);
+					   }else
+					    {
+					       csvDownload(fn);
+					    }
+				 }
+				 
+				 function xmlDownload(FN)
+			     {
+					var t = document.getElementById("sTable");
+				    var x = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<search_results>\n";
+					
+                    for(var i = 0; i < t.rows.length; i++) 
+					{					   
+                       if(t.rows[i].className == "selected")
+					   {
+					      x += "<result>\n" +
+						  "<title>" + t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML + "</title>\n" +
+                          "<url>" + t.rows[i].cells[1].getElementsByTagName("a")[0].text + "</url>\n" +
+                          "<description>" + t.rows[i].cells[2].innerHTML + "</description>\n</result>\n";
+					   }
+                    }
+					
+					x += "</search_results>";
+				    var a = document.getElementById("db");
+					
+                    var blob = new Blob([x], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = FN + ".xml";
+					a.click();
+					window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+			     }
+				 
+				 function jsonDownload(FN)
+			     {
+					var t = document.getElementById("sTable");
+				    
+                    var baseOBJ = {
+                        Result: []
+                    };
+
+                    for(var i = 0; i < t.rows.length; i++) 
+					{
+					   if(t.rows[i].className == "selected")
+					   {
+					      var rowContents = {};
+                          rowContents.title = t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML;
+                          rowContents.url = t.rows[i].cells[1].getElementsByTagName("a")[0].text;
+                          rowContents.description = t.rows[i].cells[2].innerHTML;
+						  baseOBJ.Result.push(rowContents);
+					   }
+                    }
+					
+					var myJ = JSON.stringify(baseOBJ).replace(/,{/g, ",\r\n           {");
+				    var a = document.getElementById("db");
+					
+                    var blob = new Blob([myJ], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = FN + ".json";
+					a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+				 }
+				 
+				 function csvDownload(FN)
+			     {
+					var t = document.getElementById("sTable");
+                    var x = "";
+					
+                    for(var i = 0; i < t.rows.length; i++) 
+					{
+                       if(t.rows[i].className == "selected")
+					   {
+					      var title = t.rows[i].cells[0].getElementsByTagName("p")[0].innerHTML.toString();
+					      var desc = t.rows[i].cells[2].innerHTML.toString();
+						  
+						  if(title.includes(","))
+						  {
+						     title = "\"" + title + "\"";
+						  }
+						  
+						  if(desc.includes(","))
+						  {
+						     desc = "\"" + desc.replace(/"/g, "\"\"") + "\"";
+						  }
+						  
+					      x += title + "," +
+                          t.rows[i].cells[1].getElementsByTagName("a")[0].text + "," +
+                          desc + "\n";
+					   }
+					}
+					
+					var a = document.getElementById("db");
+					
+                    var blob = new Blob([x], 
+					{
+                       type: "text/plain;charset=utf-8"
+                    });
+
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = FN + ".csv";
+					a.click();
+                    window.URL.revokeObjectURL(url);
+
+                    function printFile(file) 
+			        {
+                       var reader = new FileReader();
+                       reader.readAsText(file);
+                    }
+			     }
+		  
+				function onResultsLoad()
+				{
+					let returnedObject = JSON.parse(this.responseText);
+					let tb = "";
+					
+					for(let i = 0; i < returnedObject.items.length; i++)
+					{
+					    let i_1 = i + 1;
+					    let rI = "p4r" + i_1.toString();
+						let item = returnedObject.items[i];
+						
+						tb += "<tr id='" + rI + "' class='r3'><td class='sCell'><input type=\"checkbox\" onclick=\"selectR('" + rI + "')\"><p>" +
+						item.title + "</p></td><td class='sCell'><center><a href=\"" + item.link + "\" style='color:blue'>" +
+						item.link + "</a></center></td><td class='sCell'>" +
+						item.htmlSnippet.toString().replace(/<[^>]*>/g, '').replace(/\n/g, '') + "</td></tr>";
+					}
+					
+					document.getElementById("sTable").innerHTML = tb;
+					document.getElementById("saD").style.visibility = "visible";
+					document.getElementsByTagName("center")[returnedObject.items.length].style.visibility = "visible";
+					document.getElementsByTagName("button")[1].style.visibility = "visible";
+					document.getElementById("sa").checked = false;
+				}
+		  
+               function getSearchResults()
+			   {
+					let inputSearchBox = document.getElementById("myInput");
+					let searchQuery = inputSearchBox.value;					
+			   
+					let googleRequst = new XMLHttpRequest();
+					googleRequst.addEventListener("load", onResultsLoad);
+					googleRequst.open("GET", "https://www.googleapis.com/customsearch/v1?key=AIzaSyCN4X8GHHjDTtMqVGCmVV_dPYbFU9H40-o&cx=004128573973017795714:1qnoyvmfzcw&q="+searchQuery);
+					googleRequst.send();
+			   }
+          </script>
