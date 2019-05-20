@@ -5,10 +5,10 @@ ini_set('display_errors', true);
 
 $q = $_GET['q'];
 
-$servername = "localhost:3306";
-$username = "cpses_saeezru8f7@localhost";
-$password = "61Stockton!";
-$dbname = "saadusma_SARA";
+$servername = "mars.cs.qc.cuny.edu";
+$username = "chjo5232";
+$password = "23145232";
+$dbname = "chjo5232";
 	
 $conn = new mysqli($servername, $username, $password, $dbname);
 		 

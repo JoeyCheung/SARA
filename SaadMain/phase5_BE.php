@@ -3,10 +3,10 @@ ini_set('display_startup_errors', true);
 error_reporting(E_ALL);
 ini_set('display_errors', true);
 
-$servername = "localhost:3306";
-$username = "cpses_saeezru8f7@localhost";
-$password = "61Stockton!";
-$dbname = "saadusma_SARA";
+$servername = "mars.cs.qc.cuny.edu";
+$username = "chjo5232";
+$password = "23145232";
+$dbname = "chjo5232";
 	
 $conn = new mysqli($servername, $username, $password, $dbname);
 		 
